@@ -1,1 +1,2 @@
 # attendance-monitoring-system
+.gitignore

@@ -1,0 +1,37 @@
+@startuml AttendanceMonitoringSystemC4L2
+title C4 Level 2 Container Diagram – Attendance Monitoring System
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+Person(student, "Student")
+Person(tutor, "Tutor")
+Person(moduleLeader, "Module Leader")
+Person(courseLeader, "Course Leader")
+Person(adviser, "Academic Adviser")
+Person(admin, "Administrator")
+
+System_Boundary(ams, "Attendance Monitoring System") {
+    Container(web, "Web Application", "ASP.NET Core MVC, Razor views", "Serves pages to all user roles and handles attendance, reporting and user management.")
+    Container(worker, "Background Worker", ".NET Worker Service", "Runs scheduled jobs: session finalisation (UC006) and external data sync.")
+    ContainerDb(db, "Database", "SQL Server", "Stores users, roles, sessions and attendance records.")
+}
+
+System_Ext(studentRecords, "Student Records System", "Provides student & course data")
+System_Ext(timetabling, "Timetabling System", "Provides session & timetable data")
+System_Ext(staffAlloc, "Staff Allocation System", "Provides academic staffing data")
+System_Ext(advising, "Academic Advising System", "Provides adviser-to-advisee assignments")
+
+Rel(student, web, "Registers attendance, views own records", "HTTPS")
+Rel(tutor, web, "Records/corrects attendance", "HTTPS")
+Rel(moduleLeader, web, "Views module indicators & reports", "HTTPS")
+Rel(courseLeader, web, "Views course indicators & reports", "HTTPS")
+Rel(adviser, web, "Views advisee trends", "HTTPS")
+Rel(admin, web, "Creates users, allocates roles", "HTTPS")
+
+Rel(web, db, "Reads and writes attendance and user data", "Entity Framework Core")
+Rel(worker, db, "Finalises sessions, stores synced data", "Entity Framework Core")
+
+Rel(worker, studentRecords, "Reads student/course data from", "Scheduled sync")
+Rel(worker, timetabling, "Reads session data from", "Scheduled sync")
+Rel(worker, staffAlloc, "Reads staffing data from", "Scheduled sync")
+Rel(worker, advising, "Reads adviser-to-advisee assignments from", "Scheduled sync")
+@enduml

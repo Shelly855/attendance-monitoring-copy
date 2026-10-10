@@ -1,5 +1,5 @@
 @startuml AttendanceMonitoringSystemC4L3
-title C4 Level 3 Component Diagram – Web Application
+title C4 Level 3 Component Diagram – Attendance Monitoring System
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
 
 Person(student, "Student")
@@ -16,7 +16,7 @@ Container_Boundary(web, "Web Application") {
     Component(academic, "Academic Structure Module", "C#, ASP.NET Core MVC", "Courses, modules, cohorts, sessions, groups, teaching teams and adviser assignments (FR19).")
 }
 
-ContainerDb(db, "Database", "SQL Server", "Stores users, roles, sessions and attendance records.")
+ContainerDb(db, "Database", "SQL Server", "Stores users, roles, academic data and attendance records.")
 
 Rel(student, attendance, "Registers attendance")
 Rel(student, reporting, "Views own attendance")

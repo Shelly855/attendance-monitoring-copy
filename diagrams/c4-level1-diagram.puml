@@ -1,6 +1,7 @@
-@startuml AttendanceMonitoringSystemC4L1
-title C4 Level 3 Component Diagram – Web Application
-!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+@startuml AttendanceMonitoringSystem
+!include <C4/C4_Context>
+title C4 Level 1 System Context Diagram – Attendance Monitoring System
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
 
 Person(student, "Student")
 Person(tutor, "Tutor")
@@ -9,31 +10,22 @@ Person(courseLeader, "Course Leader")
 Person(adviser, "Academic Adviser")
 Person(admin, "Administrator")
 
-Container_Boundary(web, "Web Application") {
-    Component(attendance, "Attendance Module", "C#, ASP.NET Core MVC", "Student registration, tutor recording, and overrides with change history (FR02, FR04-FR06).")
-    Component(reporting, "Reporting Module", "C#, ASP.NET Core MVC", "Attendance views, indicators, trends, summaries and reports (FR03, FR07-FR15).")
-    Component(access, "User and Access Module", "C#, ASP.NET Core MVC", "Login, user creation, role allocation, multiple roles and permission checks (FR16-FR18).")
-    Component(academic, "Academic Structure Module", "C#, ASP.NET Core MVC", "Courses, modules, cohorts, sessions, groups, teaching teams and adviser assignments (FR19).")
-}
+System(ams, "Attendance Monitoring System")
 
-ContainerDb(db, "Database", "SQL Server", "Stores users, roles, sessions and attendance records.")
+System_Ext(studentRecords, "Student Records System", "Provides student & course data")
+System_Ext(timetabling, "Timetabling System", "Provides session & timetable data")
+System_Ext(staffAlloc, "Staff Allocation System", "Provides academic staffing data")
+System_Ext(advising, "Academic Advising System", "Provides adviser-to-advisee assignments")
 
-Rel(student, attendance, "Registers attendance")
-Rel(student, reporting, "Views own attendance")
-Rel(tutor, attendance, "Records/corrects attendance")
-Rel(moduleLeader, reporting, "Views module indicators & reports")
-Rel(courseLeader, reporting, "Views course indicators & reports")
-Rel(adviser, reporting, "Views advisee trends")
-Rel(admin, access, "Creates users, allocates roles")
-Rel(admin, academic, "Maintains supplied academic data")
+Rel(student, ams, "Registers attendance, views own records")
+Rel(tutor, ams, "Records/corrects attendance")
+Rel(moduleLeader, ams, "Views module indicators & reports")
+Rel(courseLeader, ams, "Views course indicators & reports")
+Rel(adviser, ams, "Views advisee trends")
+Rel(admin, ams, "Creates users, allocates roles")
 
-Rel(attendance, academic, "Checks student, class and teaching assignment", "In-process call")
-Rel(attendance, access, "Checks permissions", "In-process call")
-Rel(reporting, attendance, "Reads attendance records", "In-process call")
-Rel(reporting, academic, "Gets modules, cohorts and advisees in scope", "In-process call")
-Rel(reporting, access, "Checks permissions", "In-process call")
-
-Rel(attendance, db, "Reads and writes attendance data", "Entity Framework Core")
-Rel(access, db, "Reads and writes users and roles", "Entity Framework Core")
-Rel(academic, db, "Reads and writes academic data", "Entity Framework Core")
+Rel(ams, studentRecords, "Reads student/course data from")
+Rel(ams, timetabling, "Reads session data from")
+Rel(ams, staffAlloc, "Reads staffing data from")
+Rel(ams, advising, "Reads adviser-to-advisee assignments from")
 @enduml

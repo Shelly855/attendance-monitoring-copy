@@ -12,7 +12,7 @@ Person(admin, "Administrator")
 System_Boundary(ams, "Attendance Monitoring System") {
     Container(web, "Web Application", "ASP.NET Core MVC, Razor views", "Serves pages to all user roles and handles attendance, reporting and user management.")
     Container(worker, "Background Worker", ".NET Worker Service", "Runs scheduled jobs: session finalisation (UC006) and external data sync.")
-    ContainerDb(db, "Database", "SQL Server", "Stores users, roles, sessions and attendance records.")
+    ContainerDb(db, "Database", "SQL Server", "Stores users, roles, academic data and attendance records.")
 }
 
 System_Ext(studentRecords, "Student Records System", "Provides student & course data")

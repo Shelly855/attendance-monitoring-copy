@@ -1,0 +1,39 @@
+@startuml AttendanceMonitoringSystemSequenceDiagram
+title Sequence Diagram - Correct Attendance (FR05)
+
+actor Tutor
+participant "Correction Screen (UI)" as UI
+participant "AttendanceService" as Service
+participant "Database" as DB
+
+Tutor -> UI : Select student and session
+Tutor -> UI : Choose new status, reason\n(and explanation if "Other")
+Tutor -> UI : Submit
+
+UI -> Service : CorrectAttendance(attendanceId, newStatus, reason, explanation)
+
+Service -> Service : Check Tutor is authorised\nfor this session
+
+alt Tutor not authorised
+    Service --> UI : Access denied
+    UI --> Tutor : Show error "Not authorised"
+else Tutor authorised
+    Service -> Service : Validate reason provided\n(and explanation if "Other")
+
+    alt Reason missing (or explanation missing for "Other")
+        Service --> UI : Validation error
+        UI --> Tutor : Show error "Reason is required"
+    else Valid submission
+        Service -> DB : Read current Attendance status
+        DB --> Service : Current status
+
+        Service -> DB : Insert AttendanceCorrection\n(previous status, new status,\ndate/time, user, reason, explanation)
+        Service -> DB : Update Attendance status
+
+        DB --> Service : Confirm saved
+        Service --> UI : Success
+        UI --> Tutor : Show confirmation message
+    end
+end
+
+@enduml

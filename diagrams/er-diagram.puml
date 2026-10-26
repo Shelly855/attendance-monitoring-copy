@@ -1,0 +1,61 @@
+@startuml AttendanceMonitoringSystemERDiagram
+title ER Diagram - Attendance Correction & Reporting
+
+entity "User" as User {
+  * UserId : int <<PK>>
+  --
+  Username : string
+  PasswordHash : string
+  Role : string
+}
+
+entity "Student" as Student {
+  * StudentId : int <<PK>>
+  --
+  Name : string
+}
+
+entity "Module" as Module {
+  * ModuleId : int <<PK>>
+  --
+  Name : string
+  Course : string
+}
+
+entity "Session" as Session {
+  * SessionId : int <<PK>>
+  --
+  ModuleId : int <<FK>>
+  Date : date
+  StartTime : time
+  EndTime : time
+  SessionType : string
+}
+
+entity "Attendance" as Attendance {
+  * AttendanceId : int <<PK>>
+  --
+  StudentId : int <<FK>>
+  SessionId : int <<FK>>
+  Status : string
+}
+
+entity "AttendanceCorrection" as AttendanceCorrection {
+  * CorrectionId : int <<PK>>
+  --
+  AttendanceId : int <<FK>>
+  UserId : int <<FK>>
+  PreviousStatus : string
+  NewStatus : string
+  CorrectionDateTime : datetime
+  Reason : string
+  Explanation : string
+}
+
+Module ||--o{ Session : contains
+Student ||--o{ Attendance : has
+Session ||--o{ Attendance : has
+Attendance ||--o{ AttendanceCorrection : "corrected by"
+User ||--o{ AttendanceCorrection : "made by"
+
+@enduml

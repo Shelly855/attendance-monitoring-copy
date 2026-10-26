@@ -1,0 +1,32 @@
+@startuml AttendanceMonitoringSystemSequenceDiagramViewReport
+title Sequence Diagram - View Attendance Report (FR10)
+
+actor Tutor
+participant "Report Screen (UI)" as UI
+participant "AttendanceReportService" as Service
+participant "Database" as DB
+
+Tutor -> UI : Select student
+Tutor -> UI : Request Individual Student\nAttendance Report
+
+UI -> Service : GetStudentReport(studentId, moduleId)
+
+Service -> Service : Check Tutor is authorised\nfor this student's module
+
+alt Tutor not authorised
+    Service --> UI : Access denied
+    UI --> Tutor : Show error "Not authorised"
+else Tutor authorised
+    Service -> DB : Read Attendance records\nfor student and module
+    DB --> Service : Attendance records
+
+    Service -> DB : Read correction count and\nmost recent correction date
+    DB --> Service : Correction summary
+
+    Service -> Service : Calculate status totals,\nscheduled sessions,\npercentage (BR20),\ncompliance (BR14)
+
+    Service --> UI : AttendanceReport
+    UI --> Tutor : Display report\n(status totals, percentage,\ncompliance, correction summary)
+end
+
+@enduml

@@ -1,0 +1,80 @@
+@startuml AttendanceMonitoringSystemClassDiagram
+title Attendance Correction & Reporting - Class Diagram
+
+package "User and Access Module" {
+  class User {
+    +UserId: int
+    +Username: string
+    +PasswordHash: string
+  }
+  class Tutor
+  User <|-- Tutor
+}
+
+package "Attendance Module" {
+  class Attendance {
+    +AttendanceId: int
+    +Status: string
+  }
+
+  class AttendanceCorrection {
+    +CorrectionId: int
+    +PreviousStatus: string
+    +NewStatus: string
+    +CorrectionDateTime: DateTime
+    +Reason: string
+    +Explanation: string
+  }
+
+  class AttendanceService {
+    +CorrectAttendance(attendanceId, newStatus, reason, explanation): void
+  }
+}
+
+package "Reporting Module" {
+  class AttendanceReportService {
+    +GetStudentReport(studentId, moduleId): AttendanceReport
+  }
+  class AttendanceReport {
+    +PresentCount: int
+    +AbsentCount: int
+    +AuthorisedAbsenceCount: int
+    +LateArrivalCount: int
+    +LeftEarlyCount: int
+    +ScheduledSessions: int
+    +Percentage: decimal
+    +IsCompliant: bool
+  }
+}
+
+package "Academic Structure (minimal)" {
+  class Student {
+    +StudentId: int
+    +Name: string
+  }
+  class Module {
+    +ModuleId: int
+    +Name: string
+    +Course: string
+  }
+  class Session {
+    +SessionId: int
+    +Date: DateTime
+    +StartTime: time
+    +EndTime: time
+    +SessionType: string
+  }
+}
+
+Tutor "1" -- "*" Session : authorised for
+Session "1" -- "*" Attendance : has
+Student "1" -- "*" Attendance : recorded for
+Module "1" -- "*" Session : contains
+Attendance "1" -- "0..*" AttendanceCorrection : corrected by
+AttendanceCorrection "*" -- "1" User : made by
+AttendanceService ..> Attendance : updates
+AttendanceService ..> AttendanceCorrection : creates
+AttendanceReportService ..> Attendance : reads
+AttendanceReportService ..> AttendanceReport : produces
+
+@enduml

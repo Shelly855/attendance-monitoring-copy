@@ -1,5 +1,5 @@
 @startuml AttendanceMonitoringSystemClassDiagram
-title Attendance Correction & Reporting - Class Diagram
+title Class Diagram - Attendance Correction & Reporting
 
 package "User and Access Module" {
   class User {

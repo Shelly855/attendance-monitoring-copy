@@ -25,7 +25,6 @@ Rel(moduleLeader, reporting, "Views module indicators & reports")
 Rel(courseLeader, reporting, "Views course indicators & reports")
 Rel(adviser, reporting, "Views advisee trends")
 Rel(admin, access, "Creates users, allocates roles")
-Rel(admin, academic, "Maintains supplied academic data")
 
 Rel(attendance, academic, "Checks student, class and teaching assignment", "In-process call")
 Rel(attendance, access, "Checks permissions", "In-process call")

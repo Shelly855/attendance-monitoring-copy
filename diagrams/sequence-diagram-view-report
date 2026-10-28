@@ -11,7 +11,8 @@ Tutor -> UI : Request Individual Student\nAttendance Report
 
 UI -> Service : GetStudentReport(studentId, moduleId)
 
-Service -> Service : Check Tutor is authorised\nfor this student's module
+Service -> DB : Check TutorSession exists for\nTutor and any session in this module
+DB --> Service : Authorisation result
 
 alt Tutor not authorised
     Service --> UI : Access denied

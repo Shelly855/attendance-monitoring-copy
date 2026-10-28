@@ -62,6 +62,7 @@ package "Academic Structure (minimal)" {
     +ModuleId: int
     +Name: string
     +Course: string
+    +Semester: string
   }
   class Session {
     +SessionId: int

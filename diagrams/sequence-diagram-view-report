@@ -18,6 +18,9 @@ alt Tutor not authorised
     Service --> UI : Access denied
     UI --> Tutor : Show error "Not authorised"
 else Tutor authorised
+    Service -> DB : Read Student and Module details
+    DB --> Service : Student and Module details
+
     Service -> DB : Read Attendance records\nfor student and module
     DB --> Service : Attendance records
 
@@ -27,7 +30,7 @@ else Tutor authorised
     Service -> Service : Calculate status totals,\nscheduled sessions,\npercentage (BR20),\ncompliance (BR14)
 
     Service --> UI : AttendanceReport
-    UI --> Tutor : Display report\n(status totals, percentage,\ncompliance, correction summary)
+    UI --> Tutor : Display report\n(student, module, course, period,\nstatus totals, percentage,\ncompliance, correction summary)
 end
 
 @enduml

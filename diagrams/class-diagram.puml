@@ -40,6 +40,10 @@ package "Attendance Module" {
 
 package "Reporting Module" {
   class AttendanceReport {
+    +StudentName: string
+    +ModuleName: string
+    +Course: string
+    +Semester: string
     +PresentCount: int
     +AbsentCount: int
     +AuthorisedAbsenceCount: int
@@ -80,6 +84,7 @@ package "Academic Structure (minimal)" {
 Tutor "1" -- "*" TutorSession : has
 Session "1" -- "*" TutorSession : authorised via
 AttendanceService ..> TutorSession : «checks authorisation via»
+AttendanceReportService ..> TutorSession : «checks authorisation via»
 
 Session "1" -- "*" Attendance : has
 Student "1" -- "*" Attendance : recorded for
@@ -89,6 +94,8 @@ AttendanceCorrection "*" -- "1" User : made by
 AttendanceService ..> Attendance : updates
 AttendanceService ..> AttendanceCorrection : creates
 AttendanceReportService ..> Attendance : reads
+AttendanceReportService ..> Student : reads
+AttendanceReportService ..> Module : reads
 AttendanceReportService ..> AttendanceReport : produces
 
 @enduml

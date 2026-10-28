@@ -9,6 +9,12 @@ package "User and Access Module" {
   }
   class Tutor
   User <|-- Tutor
+
+  class TutorSession {
+    +TutorSessionId: int
+    -UserId: int
+    -SessionId: int
+  }
 }
 
 package "Attendance Module" {
@@ -19,6 +25,7 @@ package "Attendance Module" {
 
   class AttendanceCorrection {
     +CorrectionId: int
+    -UserId: int
     +PreviousStatus: string
     +NewStatus: string
     +CorrectionDateTime: DateTime
@@ -65,7 +72,10 @@ package "Academic Structure (minimal)" {
   }
 }
 
-Tutor "1" -- "*" Session : authorised for
+Tutor "1" -- "*" TutorSession : has
+Session "1" -- "*" TutorSession : authorised via
+AttendanceService ..> TutorSession : «checks authorisation via»
+
 Session "1" -- "*" Attendance : has
 Student "1" -- "*" Attendance : recorded for
 Module "1" -- "*" Session : contains

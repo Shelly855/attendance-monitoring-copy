@@ -52,10 +52,19 @@ entity "AttendanceCorrection" as AttendanceCorrection {
   Explanation : string
 }
 
+entity "TutorSession" as TutorSession {
+  * TutorSessionId : int <<PK>>
+  --
+  UserId : int <<FK>>
+  SessionId : int <<FK>>
+}
+
 Module ||--o{ Session : contains
 Student ||--o{ Attendance : has
 Session ||--o{ Attendance : has
 Attendance ||--o{ AttendanceCorrection : "corrected by"
 User ||--o{ AttendanceCorrection : "made by"
+User ||--o{ TutorSession : "authorised via"
+Session ||--o{ TutorSession : "authorised via"
 
 @enduml

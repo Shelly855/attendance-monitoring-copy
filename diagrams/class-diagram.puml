@@ -32,9 +32,6 @@ package "Attendance Module" {
 }
 
 package "Reporting Module" {
-  class AttendanceReportService {
-    +GetStudentReport(studentId, moduleId): AttendanceReport
-  }
   class AttendanceReport {
     +PresentCount: int
     +AbsentCount: int
@@ -44,6 +41,8 @@ package "Reporting Module" {
     +ScheduledSessions: int
     +Percentage: decimal
     +IsCompliant: bool
+    +CorrectionCount: int
+    +LastCorrectionDate: DateTime
   }
 }
 

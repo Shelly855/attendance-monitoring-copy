@@ -51,6 +51,10 @@ package "Reporting Module" {
     +CorrectionCount: int
     +LastCorrectionDate: DateTime
   }
+
+  class AttendanceReportService {
+    +GetStudentReport(studentId, moduleId): AttendanceReport
+  }
 }
 
 package "Academic Structure (minimal)" {

@@ -95,6 +95,7 @@ AttendanceCorrection "*" -- "1" User : made by
 AttendanceService ..> Attendance : updates
 AttendanceService ..> AttendanceCorrection : creates
 AttendanceReportService ..> Attendance : reads
+AttendanceReportService ..> AttendanceCorrection : reads
 AttendanceReportService ..> Student : reads
 AttendanceReportService ..> Module : reads
 AttendanceReportService ..> AttendanceReport : produces

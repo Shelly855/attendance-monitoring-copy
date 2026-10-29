@@ -28,10 +28,10 @@ Rel(adviser, reporting, "Views advisee trends")
 Rel(admin, access, "Creates users, allocates roles")
 
 Rel(attendance, academic, "Checks student, class and teaching assignment", "In-process call")
-Rel(attendance, access, "Checks permissions", "In-process call")
+Rel(attendance, access, "Reads TutorSession for authorisation", "Entity Framework Core")
 Rel(reporting, attendance, "Reads attendance records", "In-process call")
 Rel(reporting, academic, "Gets modules, cohorts and advisees in scope", "In-process call")
-Rel(reporting, access, "Checks permissions", "In-process call")
+Rel(reporting, access, "Reads TutorSession for authorisation", "Entity Framework Core")
 
 Rel(attendance, db, "Reads and writes attendance data", "Entity Framework Core")
 Rel(access, db, "Reads and writes users and roles", "Entity Framework Core")

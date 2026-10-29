@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AttendanceMonitoringSystem.Migrations
 {
     [DbContext(typeof(AttendanceDbContext))]
-    [Migration("20261029223411_InitialCreate")]
+    [Migration("20261029232052_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -66,10 +66,6 @@ namespace AttendanceMonitoringSystem.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
-
-                    b.Property<string>("Role")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");

@@ -1,7 +1,10 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace AttendanceMonitoringSystem.Models
 {
     public class AttendanceCorrection
     {
+        [Key]
         public int CorrectionId { get; set; }
         public int AttendanceId { get; set; }
         public string UserId { get; set; }

@@ -13,7 +13,7 @@ Container_Boundary(web, "Web Application") {
     Component(attendance, "Attendance Module", "C#, ASP.NET Core MVC", "Student registration, tutor recording, and overrides with change history (FR02, FR04-FR06).")
     Component(reporting, "Reporting Module", "C#, ASP.NET Core MVC", "Attendance views, indicators, trends, summaries and reports (FR03, FR07-FR15).")
     Component(access, "User and Access Module", "C#, ASP.NET Core MVC", "Login, user creation, role allocation, multiple roles and permission checks (FR16-FR18).")
-    Component(academic, "Academic Structure Module", "C#, ASP.NET Core MVC", "Courses, modules, cohorts, sessions, groups, teaching teams and adviser assignments (FR19).")
+    Component(academic, "Academic Structure Module", "C#, ASP.NET Core MVC", "Courses, modules, cohorts, sessions, groups, teaching teams (FR19) and adviser assignments.")
 }
 
 ContainerDb(db, "Database", "SQL Server", "Stores users, roles, academic data and attendance records.")

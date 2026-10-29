@@ -24,7 +24,7 @@ System_Ext(staffAlloc, "Staff Allocation System", "Provides academic staffing da
 System_Ext(advising, "Academic Advising System", "Provides adviser-to-advisee assignments")
 
 Rel(student, lb, "Registers attendance, views own records", "HTTPS")
-Rel(tutor, lb, "Records/corrects attendance", "HTTPS")
+Rel(tutor, lb, "Records/corrects attendance, views reports", "HTTPS")
 Rel(moduleLeader, lb, "Views module indicators & reports", "HTTPS")
 Rel(courseLeader, lb, "Views course indicators & reports", "HTTPS")
 Rel(adviser, lb, "Views advisee trends", "HTTPS")

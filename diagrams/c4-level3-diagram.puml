@@ -21,6 +21,7 @@ ContainerDb(db, "Database", "SQL Server", "Stores users, roles, academic data an
 Rel(student, attendance, "Registers attendance")
 Rel(student, reporting, "Views own attendance")
 Rel(tutor, attendance, "Records/corrects attendance")
+Rel(tutor, reporting, "Views attendance reports")
 Rel(moduleLeader, reporting, "Views module indicators & reports")
 Rel(courseLeader, reporting, "Views course indicators & reports")
 Rel(adviser, reporting, "Views advisee trends")

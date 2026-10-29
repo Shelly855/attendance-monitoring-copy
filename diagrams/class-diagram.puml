@@ -85,6 +85,7 @@ Tutor "1" -- "*" TutorSession : has
 Session "1" -- "*" TutorSession : authorised via
 AttendanceService ..> TutorSession : «checks authorisation via»
 AttendanceReportService ..> TutorSession : «checks authorisation via»
+AttendanceReportService ..> AttendanceCorrection : reads
 
 Session "1" -- "*" Attendance : has
 Student "1" -- "*" Attendance : recorded for

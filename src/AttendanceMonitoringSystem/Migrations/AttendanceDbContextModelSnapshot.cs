@@ -129,7 +129,6 @@ namespace AttendanceMonitoringSystem.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Explanation")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NewStatus")

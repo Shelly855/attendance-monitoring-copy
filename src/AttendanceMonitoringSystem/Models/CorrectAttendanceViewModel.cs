@@ -6,8 +6,8 @@ namespace AttendanceMonitoringSystem.Models
     {
         public int AttendanceId { get; set; }
         public int SessionId { get; set; }
-        public string StudentName { get; set; }
-        public string CurrentStatus { get; set; }
+        public string? StudentName { get; set; }
+        public string? CurrentStatus { get; set; }
 
         [Required]
         public string NewStatus { get; set; }

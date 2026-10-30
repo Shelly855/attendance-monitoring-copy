@@ -12,7 +12,7 @@ namespace AttendanceMonitoringSystem.Models
         public string NewStatus { get; set; }
         public DateTime CorrectionDateTime { get; set; }
         public string Reason { get; set; }
-        public string Explanation { get; set; }
+        public string? Explanation { get; set; }
 
         public Attendance Attendance { get; set; }
         public ApplicationUser User { get; set; }

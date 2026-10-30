@@ -11,7 +11,7 @@
 <form asp-action="Correct" method="post">
     <input type="hidden" asp-for="AttendanceId" />
     <input type="hidden" asp-for="SessionId" />
-    <div asp-validation-summary="ModelOnly"></div>
+    <div asp-validation-summary="ModelOnly" style="color: red; font-weight: bold;"></div>
 
     <div>
         <label asp-for="NewStatus">New Status</label>

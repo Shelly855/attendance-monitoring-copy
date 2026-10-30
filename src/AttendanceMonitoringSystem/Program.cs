@@ -24,6 +24,8 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 builder.Services.AddScoped<AttendanceService>();
 
+builder.Services.AddScoped<AttendanceReportService>();
+
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())

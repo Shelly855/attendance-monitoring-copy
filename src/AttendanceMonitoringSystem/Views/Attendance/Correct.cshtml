@@ -1,0 +1,52 @@
+@model AttendanceMonitoringSystem.Models.CorrectAttendanceViewModel
+
+@{
+    ViewData["Title"] = "Correct Attendance";
+}
+
+<h1>Correct Attendance</h1>
+<p>Student: @Model.StudentName</p>
+<p>Current Status: @Model.CurrentStatus</p>
+
+<form asp-action="Correct" method="post">
+    <input type="hidden" asp-for="AttendanceId" />
+    <input type="hidden" asp-for="SessionId" />
+    <div asp-validation-summary="ModelOnly"></div>
+
+    <div>
+        <label asp-for="NewStatus">New Status</label>
+        <select asp-for="NewStatus">
+            <option value="">-- Select --</option>
+            <option value="Present">Present</option>
+            <option value="Absent">Absent</option>
+            <option value="Authorised Absence">Authorised Absence</option>
+            <option value="Late Arrival">Late Arrival</option>
+            <option value="Left Early">Left Early</option>
+        </select>
+        <span asp-validation-for="NewStatus"></span>
+    </div>
+
+    <div>
+        <label asp-for="Reason">Reason</label>
+        <select asp-for="Reason">
+            <option value="">-- Select --</option>
+            <option value="Registration error">Registration error</option>
+            <option value="Technical problem">Technical problem</option>
+            <option value="Late arrival">Late arrival</option>
+            <option value="Authorised absence">Authorised absence</option>
+            <option value="Incorrect class or student selection">Incorrect class or student selection</option>
+            <option value="Other">Other</option>
+        </select>
+        <span asp-validation-for="Reason"></span>
+    </div>
+
+    <div>
+        <label asp-for="Explanation">Explanation (required if "Other")</label>
+        <textarea asp-for="Explanation"></textarea>
+        <span asp-validation-for="Explanation"></span>
+    </div>
+
+    <button type="submit">Save Correction</button>
+</form>
+
+<a asp-controller="Students" asp-action="Index" asp-route-sessionId="@Model.SessionId">Cancel</a>

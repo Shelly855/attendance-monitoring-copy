@@ -1,0 +1,39 @@
+@model List<AttendanceMonitoringSystem.Models.Session>
+
+@{
+    ViewData["Title"] = "Your Sessions";
+}
+
+<h1>Your Sessions</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Module</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Type</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var session in Model)
+        {
+            <tr>
+                <td>@session.Module.Name</td>
+                <td>@session.Date.ToString("dd MMM yyyy")</td>
+                <td>@session.StartTime - @session.EndTime</td>
+                <td>@session.SessionType</td>
+                <td>
+                    <a asp-controller="Students" asp-action="Index" asp-route-sessionId="@session.SessionId">
+                        View Students
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<form asp-controller="Account" asp-action="Logout" method="post">
+    <button type="submit">Logout</button>
+</form>

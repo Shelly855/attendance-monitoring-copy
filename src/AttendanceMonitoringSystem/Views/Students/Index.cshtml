@@ -1,0 +1,40 @@
+@model List<AttendanceMonitoringSystem.Models.StudentAttendanceViewModel>
+
+@{
+    ViewData["Title"] = "Students";
+}
+
+<h1>Students - @ViewData["ModuleName"]</h1>
+<p>@ViewData["SessionDate"], @ViewData["SessionTime"] (@ViewData["SessionType"])</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Student</th>
+            <th>Status</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var student in Model)
+        {
+            <tr>
+                <td>@student.StudentName</td>
+                <td>@student.Status</td>
+                <td>
+                    <a asp-controller="Attendance" asp-action="Correct" asp-route-attendanceId="@student.AttendanceId">
+                        Correct
+                    </a>
+                </td>
+                <td>
+                    <a asp-controller="Reports" asp-action="Index" asp-route-studentId="@student.StudentId" asp-route-moduleId="@ViewData["ModuleId"]">
+                        View Report
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-controller="Sessions" asp-action="Index">Back to Sessions</a>

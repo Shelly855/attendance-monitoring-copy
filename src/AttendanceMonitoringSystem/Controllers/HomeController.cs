@@ -15,12 +15,9 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        return View();
-    }
-
-    public IActionResult Privacy()
-    {
-        return View();
+        return User.Identity?.IsAuthenticated == true
+            ? RedirectToAction("Index", "Sessions")
+            : RedirectToAction("Login", "Account");
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

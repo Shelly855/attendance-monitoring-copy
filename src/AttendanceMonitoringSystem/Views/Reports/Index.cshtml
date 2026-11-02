@@ -4,31 +4,69 @@
     ViewData["Title"] = "Attendance Report";
 }
 
-<h1>Individual Student Attendance Report</h1>
+<div class="page" style="max-width:560px;">
+    @if (ViewData["SessionId"] != null)
+    {
+        <a class="back-link" asp-controller="Students" asp-action="Index"
+           asp-route-sessionId="@ViewData["SessionId"]">&larr; Back to students</a>
+    }
+    else
+    {
+        <a class="back-link" asp-controller="Sessions" asp-action="Index">&larr; Back to sessions</a>
+    }
 
-<p>Student: @Model.StudentName</p>
-<p>Course: @Model.Course</p>
-<p>Module: @Model.ModuleName</p>
-<p>Period: @Model.Semester</p>
+    <h1 class="page__title">Individual student attendance report</h1>
 
-<h2>Attendance Summary</h2>
-<ul>
-    <li>Present: @Model.PresentCount</li>
-    <li>Absent: @Model.AbsentCount</li>
-    <li>Authorised Absence: @Model.AuthorisedAbsenceCount</li>
-    <li>Late Arrival: @Model.LateArrivalCount</li>
-    <li>Left Early: @Model.LeftEarlyCount</li>
-    <li>Scheduled Sessions: @Model.ScheduledSessions</li>
-</ul>
+    <div class="summary-grid">
+        <div class="summary-card summary-card--identity">
+            <dl>
+                <dd>@Model.StudentName</dd>
+                <dd>@Model.Course</dd>
+                <dd>@Model.ModuleName</dd>
+                <dd>@Model.Semester</dd>
+            </dl>
+        </div>
 
-<p>Attendance Percentage: @Model.Percentage%</p>
-<p>Compliance Status: @(Model.IsCompliant ? "✓ Compliant" : "✗ Not Compliant")</p>
+        <div class="summary-card">
+            <dl>
+                <dt>Scheduled sessions</dt>
+                <dd>@Model.ScheduledSessions</dd>
+                <dt>Present</dt>
+                <dd>@Model.PresentCount</dd>
+                <dt>Absent</dt>
+                <dd>@Model.AbsentCount</dd>
+                <dt>Authorised absence</dt>
+                <dd>@Model.AuthorisedAbsenceCount</dd>
+                <dt>Late arrival</dt>
+                <dd>@Model.LateArrivalCount</dd>
+                <dt>Left early</dt>
+                <dd>@Model.LeftEarlyCount</dd>
+            </dl>
+        </div>
 
-<h2>Corrections</h2>
-<p>@Model.CorrectionCount correction(s) made</p>
-@if (Model.LastCorrectionDate.HasValue)
-{
-    <p>Last correction: @Model.LastCorrectionDate.Value.ToString("dd MMM yyyy HH:mm")</p>
-}
+        <div class="summary-card">
+            <dl>
+                <dt>Attendance percentage</dt>
+                <dd>@Model.Percentage%</dd>
+                <dt>Compliance status</dt>
+                <dd>
+                    <span class="compliance-pill compliance-pill--@(Model.IsCompliant ? "compliant" : "noncompliant")">
+                        @(Model.IsCompliant ? "✓ Compliant" : "✕ Not compliant")
+                    </span>
+                </dd>
+            </dl>
+        </div>
 
-<a asp-controller="Sessions" asp-action="Index">Back to Sessions</a>
+        <div class="summary-card">
+            <dl>
+                <dt>Corrections</dt>
+                <dd>@Model.CorrectionCount made</dd>
+                @if (Model.LastCorrectionDate.HasValue)
+                {
+                    <dt>Last correction</dt>
+                    <dd>@Model.LastCorrectionDate.Value.ToString("dd MMM yyyy HH:mm")</dd>
+                }
+            </dl>
+        </div>
+    </div>
+</div>

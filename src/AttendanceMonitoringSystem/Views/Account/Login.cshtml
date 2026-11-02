@@ -4,22 +4,26 @@
     ViewData["Title"] = "Login";
 }
 
-<h1>Attendance Monitoring System</h1>
+<div class="auth-shell">
+    <div class="auth-card">
+        <h1>Log in</h1>
 
-<form asp-action="Login" method="post">
-    <div asp-validation-summary="ModelOnly"></div>
+        <form asp-action="Login" method="post">
+            <div asp-validation-summary="ModelOnly" class="field__error"></div>
 
-    <div>
-        <label asp-for="Username">Username</label>
-        <input asp-for="Username" />
-        <span asp-validation-for="Username"></span>
+            <div class="field">
+                <label asp-for="Username">Username</label>
+                <input asp-for="Username" type="text" />
+                <span asp-validation-for="Username" class="field__error"></span>
+            </div>
+
+            <div class="field">
+                <label asp-for="Password">Password</label>
+                <input asp-for="Password" type="password" />
+                <span asp-validation-for="Password" class="field__error"></span>
+            </div>
+
+            <button type="submit" class="ams-btn ams-btn-primary ams-btn-block">Log in</button>
+        </form>
     </div>
-
-    <div>
-        <label asp-for="Password">Password</label>
-        <input asp-for="Password" />
-        <span asp-validation-for="Password"></span>
-    </div>
-
-    <button type="submit">Login</button>
-</form>
+</div>

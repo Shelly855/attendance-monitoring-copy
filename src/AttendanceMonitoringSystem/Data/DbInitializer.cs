@@ -65,10 +65,13 @@ namespace AttendanceMonitoringSystem.Data
             await context.SaveChangesAsync();
 
             // 5. Create Students
-            var student1 = new Student { Name = "Thomas Holmes" };
+            var student1 = new Student { Name = "Jane Doe" };
             var student2 = new Student { Name = "John Johnson" };
-            var student3 = new Student { Name = "Emma Watson" };
-            context.Students.AddRange(student1, student2, student3);
+            var student3 = new Student { Name = "George Emery" };
+            var student4 = new Student { Name = "Remy Philson" };
+            var student5 = new Student { Name = "Emma Watson" };
+            var student6 = new Student { Name = "Thomas Holmes" };
+            context.Students.AddRange(student1, student2, student3, student4, student5, student6);
             await context.SaveChangesAsync();
 
             // 6. Authorise Tutor for both sessions
@@ -81,10 +84,17 @@ namespace AttendanceMonitoringSystem.Data
             context.Attendances.AddRange(
                 new Attendance { StudentId = student1.StudentId, SessionId = session1.SessionId, Status = "Present" },
                 new Attendance { StudentId = student2.StudentId, SessionId = session1.SessionId, Status = "Absent" },
-                new Attendance { StudentId = student3.StudentId, SessionId = session1.SessionId, Status = "Late Arrival" },
+                new Attendance { StudentId = student3.StudentId, SessionId = session1.SessionId, Status = "Authorised Absence" },
+                new Attendance { StudentId = student4.StudentId, SessionId = session1.SessionId, Status = "Late Arrival" },
+                new Attendance { StudentId = student5.StudentId, SessionId = session1.SessionId, Status = "Left Early" },
+                new Attendance { StudentId = student6.StudentId, SessionId = session1.SessionId, Status = "Present" },
+
                 new Attendance { StudentId = student1.StudentId, SessionId = session2.SessionId, Status = "Present" },
                 new Attendance { StudentId = student2.StudentId, SessionId = session2.SessionId, Status = "Present" },
-                new Attendance { StudentId = student3.StudentId, SessionId = session2.SessionId, Status = "Absent" }
+                new Attendance { StudentId = student3.StudentId, SessionId = session2.SessionId, Status = "Present" },
+                new Attendance { StudentId = student4.StudentId, SessionId = session2.SessionId, Status = "Absent" },
+                new Attendance { StudentId = student5.StudentId, SessionId = session2.SessionId, Status = "Authorised Absence" },
+                new Attendance { StudentId = student6.StudentId, SessionId = session2.SessionId, Status = "Present" }
             );
 
             await context.SaveChangesAsync();

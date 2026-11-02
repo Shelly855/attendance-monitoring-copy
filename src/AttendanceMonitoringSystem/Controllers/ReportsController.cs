@@ -18,7 +18,7 @@ namespace AttendanceMonitoringSystem.Controllers
             _userManager = userManager;
         }
 
-        public async Task<IActionResult> Index(int studentId, int moduleId)
+        public async Task<IActionResult> Index(int studentId, int moduleId, int? sessionId)
         {
             var userId = _userManager.GetUserId(User);
 
@@ -33,6 +33,8 @@ namespace AttendanceMonitoringSystem.Controllers
             {
                 return NotFound();
             }
+
+            ViewData["SessionId"] = sessionId;
 
             return View(report);
         }

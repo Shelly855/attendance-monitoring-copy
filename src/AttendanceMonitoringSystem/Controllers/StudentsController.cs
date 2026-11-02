@@ -55,6 +55,7 @@ namespace AttendanceMonitoringSystem.Controllers
 
             ViewData["ModuleName"] = session.Module.Name;
             ViewData["ModuleId"] = session.ModuleId;
+            ViewData["SessionId"] = sessionId;
             ViewData["SessionDate"] = session.Date.ToString("dd MMM yyyy");
             ViewData["SessionTime"] = $"{session.StartTime} - {session.EndTime}";
             ViewData["SessionType"] = session.SessionType;

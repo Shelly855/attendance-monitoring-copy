@@ -4,36 +4,48 @@
     ViewData["Title"] = "Your Sessions";
 }
 
-<h1>Your Sessions</h1>
+<div class="page">
+    <div class="page__header">
+        <h1 class="page__title">Your sessions</h1>
+    </div>
 
-<table>
-    <thead>
-        <tr>
-            <th>Module</th>
-            <th>Date</th>
-            <th>Time</th>
-            <th>Type</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var session in Model)
+    <div class="table-card">
+        @if (Model.Any())
         {
-            <tr>
-                <td>@session.Module.Name</td>
-                <td>@session.Date.ToString("dd MMM yyyy")</td>
-                <td>@session.StartTime - @session.EndTime</td>
-                <td>@session.SessionType</td>
-                <td>
-                    <a asp-controller="Students" asp-action="Index" asp-route-sessionId="@session.SessionId">
-                        View Students
-                    </a>
-                </td>
-            </tr>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Module</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Type</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var session in Model)
+                    {
+                        <tr>
+                            <td data-label="Module">@session.Module.Name</td>
+                            <td data-label="Date">@session.Date.ToString("dd MMM yyyy")</td>
+                            <td data-label="Time">@session.StartTime - @session.EndTime</td>
+                            <td data-label="Type">@session.SessionType</td>
+                            <td>
+                                <div class="row-actions">
+                                    <a class="ams-btn ams-btn-sm ams-btn-secondary" asp-controller="Students" asp-action="Index"
+                                       asp-route-sessionId="@session.SessionId">
+                                        View students
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         }
-    </tbody>
-</table>
-
-<form asp-controller="Account" asp-action="Logout" method="post">
-    <button type="submit">Logout</button>
-</form>
+        else
+        {
+            <p class="table-empty">You have no sessions scheduled.</p>
+        }
+    </div>
+</div>

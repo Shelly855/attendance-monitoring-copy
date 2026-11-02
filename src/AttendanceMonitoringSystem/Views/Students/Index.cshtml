@@ -2,39 +2,67 @@
 
 @{
     ViewData["Title"] = "Students";
+
+    string StatusSlug(string status) => status switch
+    {
+        "Present" => "present",
+        "Absent" => "absent",
+        "Authorised Absence" => "authorised",
+        "Late Arrival" => "late",
+        "Left Early" => "left-early",
+        _ => "authorised"
+    };
 }
 
-<h1>Students - @ViewData["ModuleName"]</h1>
-<p>@ViewData["SessionDate"], @ViewData["SessionTime"] (@ViewData["SessionType"])</p>
+<div class="page">
+    <a class="back-link" asp-controller="Sessions" asp-action="Index">&larr; Back to sessions</a>
 
-<table>
-    <thead>
-        <tr>
-            <th>Student</th>
-            <th>Status</th>
-            <th></th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var student in Model)
+    <div class="page__header">
+        <h1 class="page__title">Students — @ViewData["ModuleName"]</h1>
+        <p class="page__subtitle">@ViewData["SessionDate"] &middot; @ViewData["SessionTime"] (@ViewData["SessionType"])
+        </p>
+    </div>
+
+    <div class="table-card">
+        @if (Model.Any())
         {
-            <tr>
-                <td>@student.StudentName</td>
-                <td>@student.Status</td>
-                <td>
-                    <a asp-controller="Attendance" asp-action="Correct" asp-route-attendanceId="@student.AttendanceId">
-                        Correct
-                    </a>
-                </td>
-                <td>
-                    <a asp-controller="Reports" asp-action="Index" asp-route-studentId="@student.StudentId" asp-route-moduleId="@ViewData["ModuleId"]">
-                        View Report
-                    </a>
-                </td>
-            </tr>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Student</th>
+                        <th>Status</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var student in Model)
+                    {
+                        <tr>
+                            <td data-label="Student">@student.StudentName</td>
+                            <td data-label="Status">
+                                <span class="status status--@StatusSlug(student.Status)">@student.Status</span>
+                            </td>
+                            <td>
+                                <div class="row-actions">
+                                    <a class="ams-btn ams-btn-sm ams-btn-secondary" asp-controller="Attendance"
+                                       asp-action="Correct" asp-route-attendanceId="@student.AttendanceId">
+                                        Correct
+                                    </a>
+                                    <a class="ams-btn ams-btn-sm ams-btn-secondary" asp-controller="Reports" asp-action="Index"
+                                       asp-route-studentId="@student.StudentId" asp-route-moduleId="@ViewData["ModuleId"]"
+                                       asp-route-sessionId="@ViewData["SessionId"]">
+                                        View report
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         }
-    </tbody>
-</table>
-
-<a asp-controller="Sessions" asp-action="Index">Back to Sessions</a>
+        else
+        {
+            <p class="table-empty">No students found for this session.</p>
+        }
+    </div>
+</div>

@@ -56,8 +56,18 @@ package "Reporting Module" {
     +LastCorrectionDate: DateTime
   }
 
+  class CorrectionHistoryEntry {
+    +CorrectionDateTime: DateTime
+    +PreviousStatus: string
+    +NewStatus: string
+    +Reason: string
+    +Explanation: string
+    +CorrectedBy: string
+  }
+
   class AttendanceReportService {
     +GetStudentReport(studentId, moduleId): AttendanceReport
+    +GetCorrectionHistory(studentId, moduleId): List<CorrectionHistoryEntry>
   }
 }
 
@@ -99,5 +109,6 @@ AttendanceReportService ..> AttendanceCorrection : reads
 AttendanceReportService ..> Student : reads
 AttendanceReportService ..> Module : reads
 AttendanceReportService ..> AttendanceReport : produces
+AttendanceReportService ..> CorrectionHistoryEntry : produces
 
 @enduml

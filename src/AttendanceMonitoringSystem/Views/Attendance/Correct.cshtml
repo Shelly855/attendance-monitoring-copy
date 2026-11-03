@@ -69,8 +69,14 @@
             var explanationField = document.getElementById('explanationField');
             if (!reasonField || !explanationField) return;
 
+            var textarea = explanationField.querySelector('textarea');
+
             function syncExplanationVisibility() {
-                explanationField.style.display = reasonField.value === 'Other' ? '' : 'none';
+                var isOther = reasonField.value === 'Other';
+                explanationField.style.display = isOther ? '' : 'none';
+                if (!isOther && textarea) {
+                    textarea.value = '';
+                }
             }
 
             reasonField.addEventListener('change', syncExplanationVisibility);

@@ -35,8 +35,37 @@ namespace AttendanceMonitoringSystem.Controllers
             }
 
             ViewData["SessionId"] = sessionId;
+            ViewData["StudentId"] = studentId;
+            ViewData["ModuleId"] = moduleId;
 
             return View(report);
+        }
+
+        public async Task<IActionResult> History(int studentId, int moduleId, int? sessionId)
+        {
+            var userId = _userManager.GetUserId(User);
+
+            if (!await _reportService.IsTutorAuthorisedForModuleAsync(userId, moduleId))
+            {
+                return Forbid();
+            }
+
+            var report = await _reportService.GetStudentReport(studentId, moduleId);
+
+            if (report == null)
+            {
+                return NotFound();
+            }
+
+            var history = await _reportService.GetCorrectionHistory(studentId, moduleId);
+
+            ViewData["SessionId"] = sessionId;
+            ViewData["StudentId"] = studentId;
+            ViewData["ModuleId"] = moduleId;
+            ViewData["StudentName"] = report.StudentName;
+            ViewData["ModuleName"] = report.ModuleName;
+
+            return View(history);
         }
     }
 }

@@ -67,6 +67,16 @@
                     <dd>@Model.LastCorrectionDate.Value.ToString("dd MMM yyyy HH:mm")</dd>
                 }
             </dl>
+            @if (Model.CorrectionCount > 0)
+            {
+                <div class="row-actions" style="justify-content:flex-start; margin-top: var(--space-3);">
+                    <a class="ams-btn ams-btn-sm ams-btn-secondary" asp-action="History"
+                       asp-route-studentId="@ViewData["StudentId"]" asp-route-moduleId="@ViewData["ModuleId"]"
+                       asp-route-sessionId="@ViewData["SessionId"]">
+                        View correction history
+                    </a>
+                </div>
+            }
         </div>
     </div>
 </div>

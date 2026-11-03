@@ -66,5 +66,22 @@ namespace AttendanceMonitoringSystem.Services
                 LastCorrectionDate = lastCorrectionDate
             };
         }
+
+        public async Task<List<CorrectionHistoryEntry>> GetCorrectionHistory(int studentId, int moduleId)
+        {
+            return await _context.AttendanceCorrections
+                .Where(c => c.Attendance.StudentId == studentId && c.Attendance.Session.ModuleId == moduleId)
+                .OrderByDescending(c => c.CorrectionDateTime)
+                .Select(c => new CorrectionHistoryEntry
+                {
+                    CorrectionDateTime = c.CorrectionDateTime,
+                    PreviousStatus = c.PreviousStatus,
+                    NewStatus = c.NewStatus,
+                    Reason = c.Reason,
+                    Explanation = c.Explanation,
+                    CorrectedBy = c.User.UserName
+                })
+                .ToListAsync();
+        }
     }
 }

@@ -1,0 +1,71 @@
+@model List<AttendanceMonitoringSystem.Models.CorrectionHistoryEntry>
+
+@{
+    ViewData["Title"] = "Correction History";
+
+    string StatusSlug(string status) => status switch
+    {
+        "Present" => "present",
+        "Absent" => "absent",
+        "Authorised Absence" => "authorised",
+        "Late Arrival" => "late",
+        "Left Early" => "left-early",
+        _ => "authorised"
+    };
+}
+
+<div class="page">
+    <a class="back-link" asp-action="Index" asp-route-studentId="@ViewData["StudentId"]"
+       asp-route-moduleId="@ViewData["ModuleId"]" asp-route-sessionId="@ViewData["SessionId"]">
+        &larr; Back to report
+    </a>
+
+    <div class="page__header">
+        <h1 class="page__title">Correction history</h1>
+        <p class="page__subtitle">@ViewData["StudentName"] &middot; @ViewData["ModuleName"]</p>
+    </div>
+
+    <div class="table-card">
+        @if (Model.Any())
+        {
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Previous status</th>
+                        <th>New status</th>
+                        <th>Reason</th>
+                        <th>Corrected by</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var entry in Model)
+                    {
+                        <tr>
+                            <td data-label="Date">@entry.CorrectionDateTime.ToString("dd MMM yyyy HH:mm")</td>
+                            <td data-label="Previous status">
+                                <span class="status status--@StatusSlug(entry.PreviousStatus)">@entry.PreviousStatus</span>
+                            </td>
+                            <td data-label="New status">
+                                <span class="status status--@StatusSlug(entry.NewStatus)">@entry.NewStatus</span>
+                            </td>
+                            <td data-label="Reason">
+                                @entry.Reason
+                                @if (!string.IsNullOrWhiteSpace(entry.Explanation))
+                                {
+                                    <br /><span
+                                    style="color: var(--ink-soft); font-size: 0.85rem; font-style: italic;">"@entry.Explanation"</span>
+                                }
+                            </td>
+                            <td data-label="Corrected by">@entry.CorrectedBy</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p class="table-empty">No corrections recorded.</p>
+        }
+    </div>
+</div>

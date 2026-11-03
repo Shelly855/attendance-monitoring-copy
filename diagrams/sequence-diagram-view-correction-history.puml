@@ -1,0 +1,36 @@
+@startuml AttendanceMonitoringSystemSequenceDiagramCorrectionHistory
+title Sequence Diagram - View Correction History (UC026)
+
+actor Tutor
+participant "History Screen (UI)" as UI
+participant "AttendanceReportService" as Service
+participant "Database" as DB
+
+Tutor -> UI : Click "View Correction History"\n(from Individual Student Attendance Report)
+
+UI -> Service : GetStudentReport(studentId, moduleId)
+
+Service -> DB : Check TutorSession exists for\nTutor and any session in this module
+DB --> Service : Authorisation result
+
+alt Tutor not authorised
+    Service --> UI : Access denied
+    UI --> Tutor : Show error "Not authorised"
+else Tutor authorised
+    Service -> DB : Read Student and Module details
+    DB --> Service : Student and Module details
+
+    Service --> UI : StudentName, ModuleName
+
+    UI -> Service : GetCorrectionHistory(studentId, moduleId)
+
+    Service -> DB : Read AttendanceCorrections\nfor student and module,\nordered by date (most recent first)
+    DB --> Service : Correction records\n(previous status, new status, date/time,\nreason, explanation, corrected by)
+
+    Service -> Service : Map to CorrectionHistoryEntry list
+
+    Service --> UI : List<CorrectionHistoryEntry>
+    UI --> Tutor : Display correction history table\n(date, previous status, new status,\nreason, corrected by)
+end
+
+@enduml

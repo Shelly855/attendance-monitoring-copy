@@ -49,8 +49,8 @@
                 <span asp-validation-for="Reason" class="field__error"></span>
             </div>
 
-            <div class="field">
-                <label asp-for="Explanation">Explanation (required if "Other")</label>
+            <div class="field" id="explanationField">
+                <label asp-for="Explanation">Explanation</label>
                 <textarea asp-for="Explanation"></textarea>
                 <span asp-validation-for="Explanation" class="field__error"></span>
             </div>
@@ -62,3 +62,18 @@
             </div>
         </form>
     </div>
+
+    <script>
+        (function () {
+            var reasonField = document.querySelector('[name="Reason"]');
+            var explanationField = document.getElementById('explanationField');
+            if (!reasonField || !explanationField) return;
+
+            function syncExplanationVisibility() {
+                explanationField.style.display = reasonField.value === 'Other' ? '' : 'none';
+            }
+
+            reasonField.addEventListener('change', syncExplanationVisibility);
+            syncExplanationVisibility();
+        })();
+    </script>

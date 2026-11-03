@@ -36,7 +36,7 @@ namespace AttendanceMonitoringSystem.Controllers
                 return RedirectToAction("Index", "Sessions");
             }
 
-            ModelState.AddModelError(string.Empty, "Invalid username or password.");
+            ModelState.AddModelError(string.Empty, "Please enter a valid username and password.");
             return View(model);
         }
 

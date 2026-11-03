@@ -438,3 +438,66 @@ table.data-table {
   }
   .row-actions { justify-content: flex-start; padding-top: var(--space-2); }
 }
+
+.field .input-validation-error {
+  border-color: var(--clay);
+}
+
+.field-validation-error {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+}
+
+.field-validation-error::before {
+  content: "!";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1rem;
+  height: 1rem;
+  flex: none;
+  border-radius: 50%;
+  background: var(--clay);
+  color: #fff;
+  font-size: 0.68rem;
+  font-weight: 700;
+  margin-top: 0.1rem;
+}
+
+.validation-summary-errors {
+  margin-bottom: var(--space-4);
+}
+
+.validation-summary-errors ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.validation-summary-errors li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  color: var(--clay);
+  font-size: 0.85rem;
+}
+
+.validation-summary-errors li::before {
+  content: "!";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1rem;
+  height: 1rem;
+  flex: none;
+  border-radius: 50%;
+  background: var(--clay);
+  color: #fff;
+  font-size: 0.68rem;
+  font-weight: 700;
+  margin-top: 0.15rem;
+}
